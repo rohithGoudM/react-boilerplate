@@ -1,6 +1,7 @@
 const express  = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser  = require("body-parser");
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 const keys = require('./config/keys');
@@ -14,6 +15,10 @@ require('./services/passport')
 mongoose.connect(keys.mongoURI,()=>{
     console.log("connected to db")
 })
+
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use(
     cookieSession({
